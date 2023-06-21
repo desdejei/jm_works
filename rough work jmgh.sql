@@ -716,3 +716,67 @@ ORDER BY created_time DESC
 
 
 SELECT * from roam_jobs_crm.crm_jmgh_full_deals LIMIT 100
+
+
+
+SELECT * FROM roam_jobs_crm.crm_jmgh_full_accounts LIMIT 100
+
+SELECT fa.account_name, fa.industry, fa.last_posted_job, fa.email, fa.phone , 
+	fc.email fc_email, fc.account_name fc_account_id, fc.full_name fc_full_name, 
+	fc.first_name fc_first_name, fc.last_name fc_last_name, fc.`position`
+FROM roam_jobs_crm.crm_jmgh_full_accounts fa
+LEFT JOIN roam_jobs_crm.crm_jmgh_full_contacts fc
+ON fa.id=fc.account_name 
+LIMIT 300
+
+
+SELECT * FROM roam_jobs_crm.crm_jmgh_full_contacts  LIMIT 100
+fc.email, fc.account_name, fc.full_name, fc.first_name, fc.last_name, fc.`position`
+
+
+SELECT * FROM roam_jobs_crm.crm_jmgh_full_allusers  LIMIT 100
+
+
+
+WHEN m.producttype::text = 'Communication'::character varying::text AND
+                                m.product_name::text ~~* '%Alcatel%'::character varying::text
+                               THEN 'Comms Standard'::character varying
+
+
+
+SELECT * FROM (
+SELECT fa.account_name, fa.industry, fa.last_posted_job, fa.email, fa.phone , 
+	 fc.account_name account_id, fc.full_name , fc.first_name, fc.last_name, fc.`position`
+FROM roam_jobs_crm.crm_jmgh_full_accounts fa
+	LEFT JOIN roam_jobs_crm.crm_jmgh_full_contacts fc
+	ON fa.id=fc.account_name 
+WHERE fa.email like '%hr%'
+	OR fa.email like '%human%'
+	OR fc.full_name like '%hr%'
+	OR fc.full_name like '%human%'
+	OR fc.`position`like '%hr%'
+	OR fc.`position`like '%human%'
+	) main
+WHERE  main.account_name NOT LIKE '%Job Seeker'
+	AND main.account_name <> 'Job Seeker'
+
+LIMIT 300
+
+
+
+
+
+
+SELECT fa.account_name, fa.industry, fa.last_posted_job, fa.email, fa.phone , 
+	 fc.account_name account_id, fc.full_name , fc.first_name, fc.last_name, fc.`position`
+FROM roam_jobs_crm.crm_jmgh_full_accounts fa
+	LEFT JOIN roam_jobs_crm.crm_jmgh_full_contacts fc
+	ON fa.id=fc.account_name 
+WHERE fa.email collate latin1_swedish_ci = "%hr%"
+OR fa.email collate latin1_swedish_ci = "%human%"
+LIMIT 20
+
+
+
+no_of_employee
+
