@@ -329,3 +329,67 @@ LIMIT 20
 
 SELECT fr.id entity_id, fr.* FROM roam_jobs_crm.crm_jmgh_full_recruitment fr
 LIMIT 100
+
+
+
+
+
+
+
+SELECT DISTINCT domain_id FROM jobs.job_seekers js LIMIT 100
+
+SELECT * FROM jobs.users ju 
+LIMIT 100
+
+
+
+SELECT 
+js.id, ju.id, js.user_id, CONCAT(ju.firstname,' ', ju.lastname) AS Seeker_name,  
+ju.email, ju.mobile_number,  js.gender, js.completeness_percentage, js.created_at, ju.last_seen, js.domain_id
+FROM jobs.job_seekers js
+LEFT JOIN jobs.users ju
+ON js.user_id= ju.id
+WHERE -- js.domain_id=6
+-- AND 
+js.completeness_percentage < 100
+AND ju.created_at BETWEEN  DATE(current_date - INTERVAL 6 MONTH) AND date(current_date) 
+OR ju.last_login_at  BETWEEN  DATE(current_date - INTERVAL 6 MONTH) AND date(current_date)
+HAVING js.domain_id=6
+ORDER BY js.domain_id DESC 
+LIMIT 500
+
+
+
+SELECT 
+js.id, ju.id, js.user_id, CONCAT(ju.firstname,' ', ju.lastname) AS Seeker_name,  
+ju.email, ju.mobile_number,  js.gender, js.completeness_percentage, js.created_at, ju.last_seen,  js.domain_id
+FROM jobs.job_seekers js
+LEFT JOIN jobs.users ju
+ON js.user_id= ju.id
+WHERE js.domain_id = 6
+AND js.completeness_percentage < 100
+AND ju.created_at BETWEEN  DATE(current_date - INTERVAL 6 MONTH) AND date(current_date) 
+OR ju.last_login_at  BETWEEN  DATE(current_date - INTERVAL 6 MONTH) AND date(current_date)
+LIMIT 500
+
+
+SELECT 
+fd.account_name account_id, fa.account_name, fd.stage, max(fd.location), fa.billing_street, fa.billing_city, fa.billing_country
+FROM roam_jobs_crm.crm_jmgh_full_accounts fa
+JOIN roam_jobs_crm.crm_jmgh_full_deals fd
+ON fa.id = fd.account_name
+WHERE stage IN ( "Closed Won", "Cash Receive")
+account_name ike "%Celestial School%"
+-- GROUP BY fd.account_name
+LIMIT 100
+
+
+
+"AIDEC Holdings Ltd"
+"Natures Pride (ID:204218)"
+""
+
+SELECT * FROM  roam_jobs_crm.crm_jmgh_full_accounts LIMIT 100
+
+SELECT * FROM  roam_jobs_crm.crm_jmgh_full_deals LIMIT 100
+
